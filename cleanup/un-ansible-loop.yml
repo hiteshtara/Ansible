@@ -1,0 +1,19 @@
+---
+- name: clean up all
+  hosts: ansible2.example.com
+  tasks:
+  - name: remove services
+    yum: 
+      name: "{{ item }}"
+      state: absent
+    with_items:
+      - httpd
+      - vsftpf
+  - name: remove files
+    file:
+      path: "{{ item }}"
+      state: absent
+    with_items:
+      - /etc/ansible/facts.d
+      - /var/www/html/index.html
+      - /var/ftp/pub/README
